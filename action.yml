@@ -1,7 +1,6 @@
 name: "GCP on-demand container scan"
 description: "Scan container using GCP"
 
-
 inputs:
   containerTag:
     description: "Container name tag which we want to scan"
@@ -9,9 +8,15 @@ inputs:
   slackWebhook:
     description: "Preferred slack channel webhook to send notifications"
     required: true
+  githubUrl:
+    description: "Github Action github url"
+    required: true
 runs:
   using: composite
   steps:
     - name: Container Scan
       run: ./scripts/scan.sh
       shell: bash
+      env:
+        containerTag: ${{ inputs.containerTag }}
+        slackWebhook: ${{ inputs.slackWebhook }}
