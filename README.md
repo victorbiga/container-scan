@@ -62,7 +62,7 @@ resource "google_project_iam_custom_role" "ondemandscanning_analyze_packages" {
 ### Slack
 - Slack app Container-Scan installed in Slack workspace
 - Slack webhook with your preferred channel
-> Note: You will need to create Slack webhook for your preferred notification channel in Slack workspace. To access App configuration page link would look https://api.slack.com/apps/{{ slack_org_id }}/incoming-webhooks. New webhook can be created only by Workspace admins.
+> Note: You will need to create Slack webhook for your preferred notification channel in Slack workspace. To access App configuration page link would look ```https://api.slack.com/apps/{{ slack_org_id }}/incoming-webhooks```. New webhook can be created only by Workspace admins.
 
 ## Features
 
