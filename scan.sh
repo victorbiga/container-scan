@@ -1,7 +1,7 @@
 touch scanResults
 scanResults="scanResults"
 vulnerabilitySeverityRating=(CRITICAL HIGH MEDIUM LOW)
-metaDataTableFormat='table(vulnerability.effectiveSeverity, vulnerability.cvssScore, noteName, vulnerability.packageIssue[0].affectedPackage, vulnerability.packageIssue[0].affectedVersion.name, vulnerability.packageIssue[0].fixedVersion.name)'
+metaDataTableFormat='table(vulnerability.effectiveSeverity, vulnerability.cvssScore, vulnerability.packageIssue[0].affectedPackage, vulnerability.packageIssue[0].affectedVersion.name, vulnerability.packageIssue[0].fixedVersion.name, noteName)'
 githubUrl="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
 function gcloud() {
