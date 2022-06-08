@@ -74,7 +74,7 @@ resource "google_project_iam_custom_role" "ondemandscanning_analyze_packages" {
 
 ## Support
 
-If you are having issues, please raise issue.
+If you are having issues, please report them in  "issue" section.
 
 [Container Analysis]: <https://cloud.google.com/container-analysis/pricing>
 [sample.yml]: <http://github.com/victorbiga/container-scan/sample.yml>
