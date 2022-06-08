@@ -54,7 +54,7 @@ resource "google_project_iam_custom_role" "ondemandscanning_analyze_packages" {
 - Existing Github Actions workflow with Docker build
 - Ubuntu 22.04 LTS Github runner with jq tool pre-installed
 - containerTag is set in env or as string value
-- githubUrl is set to ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}. This is required to have the link in Slack notification to Github Actions job. 
+- githubUrl is set to ```${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}```. This is required to have the link in Slack notification to Github Actions job. 
 - Slack webhook added to your repository secrets. Name your secret CONTAINER_SCAN_SLACK_WEBHOOK 
 - GCP service account key added to your repository secrets. Name your secret GCP_SERVICE_ACCOUNT_KEY
 
