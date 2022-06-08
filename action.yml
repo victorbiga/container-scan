@@ -3,7 +3,7 @@ description: "Scan container using GCP"
 
 
 inputs:
-  container_name:
+  containerTag:
     description: "Container name tag which we want to scan"
     required: true
   slackWebhook:
