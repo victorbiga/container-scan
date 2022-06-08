@@ -1,5 +1,3 @@
-#!/bin/bash
-
 touch scanResults
 scanResults="scanResults"
 vulnerabilitySeverityRating=(CRITICAL HIGH MEDIUM LOW)

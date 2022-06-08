@@ -19,7 +19,7 @@ runs:
       shell: bash
 
     - name: Container Scan
-      run: ./scripts/scan.sh
+      run: scan.sh
       shell: bash
       env:
         containerTag: ${{ inputs.containerTag }}
