@@ -15,7 +15,7 @@ runs:
   using: composite
   steps:
     - name: Add GITHUB run path
-      run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      run: echo "${{ github.action_path }}" >> $GITHUB_PATH && pwd && ls -lR
       shell: bash
 
     - name: Container Scan
