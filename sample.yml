@@ -1,0 +1,59 @@
+---
+name: Build and Push Python Image to Google Cloud Platform
+on:
+  push:
+    branches: [ master ]
+jobs:
+  container-scan:
+    name: Build and Push to GCP
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: container
+      PROJECT_ID: my-favorite-project
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Authenticate Google Cloud Platform
+        uses: google-github-actions/auth@v0.8.0
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Build Docker Image
+        run: docker build -t ${{ env.IMAGE_NAME }} .
+
+      - name: Container Scan
+        uses: victorbiga/container-scan@master
+        with:
+          containerTag: ${{ env.IMAGE_NAME }}
+          slackWebhook: ${{ secrets.CONTAINER_SCAN_SLACK_WEBHOOK }}
+          githubUrl: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Automatic Tagging of Releases
+        id: increment-git-tag
+        run: |
+          bash ./scripts/git_update.sh -v major
+
+      - name: Configure Docker Client
+        run: |-
+          gcloud auth configure-docker --quiet
+          gcloud auth configure-docker us-west2-docker.pkg.dev --quiet
+
+      - name: Push Docker Image to Container Registry (GCR)
+        env:
+          GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+        run: |-
+          docker tag ${{ env.IMAGE_NAME }}:latest gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ env.IMAGE_NAME }}:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
+          docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ env.GIT_TAG }}
+
+      - name: Push Docker Image to Artifact Registry
+        env:
+          GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+        run: |-
+          docker tag ${{ env.IMAGE_NAME }}:latest us-west2-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ env.IMAGE_NAME }}:latest us-west2-docker.pkg.dev/${{ env.PROJECT_ID }}/images/${{ env.IMAGE_NAME }}:${{ env.GIT_TAG }}
+          docker push us-west2-docker.pkg.dev/${{ env.PROJECT_ID}}/images/${{ env.IMAGE_NAME }}:latest
+
