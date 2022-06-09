@@ -35,7 +35,7 @@ The ease of usage is explained below:
 ## Prerequisites
 ### GCP
 - GCP On-Demand Scanning API enabled
-- service account with the key and relevant permissions to perform container push to GCR and mainly the below "cherry-picked" roles provided in terraform resource format:
+- service account with the key and relevant permissions to perform container push to GCR or Workload Identity Federation configured and mainly the below "cherry-picked" roles provided in terraform resource format:
 ````
 # Google Cloud IAM role for container scanning using GCP ondemand service.
 resource "google_project_iam_custom_role" "ondemandscanning_analyze_packages" {
@@ -56,7 +56,7 @@ resource "google_project_iam_custom_role" "ondemandscanning_analyze_packages" {
 - containerTag is set in env or as string value
 - githubUrl is set to ```${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}```. This is required to have the link in Slack notification to Github Actions job. 
 - Slack webhook added to your repository secrets. Name your secret CONTAINER_SCAN_SLACK_WEBHOOK 
-- GCP service account key added to your repository secrets. Name your secret GCP_SERVICE_ACCOUNT_KEY
+- GCP service account key added to your repository secrets. Name your secret GCP_SERVICE_ACCOUNT_KEY if using service account json key
 
 
 ### Slack
