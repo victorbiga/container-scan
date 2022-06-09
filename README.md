@@ -61,7 +61,8 @@ resource "google_project_iam_custom_role" "ondemandscanning_analyze_packages" {
 
 
 ### Slack
-- Slack app Container-Scan installed in Slack workspace
+- Create Container Scan app so you can create and handle webhooks. More details how to do that [Create Slack app]
+- Slack app Container Scan installed in Slack workspace
 - Slack webhook with your preferred channel
 > Note: You will need to create Slack webhook for your preferred notification channel in Slack workspace. To access App configuration page link would look ```https://api.slack.com/apps/{{ slack_org_id }}/incoming-webhooks```. New webhook can be created only by Workspace admins.
 
@@ -79,3 +80,4 @@ If you are having issues, please report them in  "issue" section.
 
 [Container Analysis]: <https://cloud.google.com/container-analysis/pricing>
 [sample.yml]: <http://github.com/victorbiga/container-scan/sample.yml>
+[Create Slack app]: <https://api.slack.com/messaging/webhooks>
