@@ -1,7 +1,10 @@
 name: "GCP Container Scan"
 author: "Victor Biga"
 description: "on-demand container scanning using GCP on-demand API"
-
+branding:
+  icon: "alert-triangle"
+  color: "blue"
+  
 name: "GCP on-demand container scan"
 description: "Scan container using GCP"
 
